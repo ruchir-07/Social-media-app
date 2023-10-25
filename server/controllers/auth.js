@@ -15,17 +15,18 @@ export const register = async (req, res) => {
             location,
             occupation,
         } = req.body;
+        
         /* HASH PASSWORD */
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(req.body.password, salt);
+        const salt = await bcrypt.genSalt();
+        const hashedPassword = await bcrypt.hash(password, salt);
 
         /* CREATE USER */
         const newUser = await new User({
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            email: req.body.email,
+            firstName,
+            lastName,
+            email,
             password: hashedPassword,
-            picturePath: req.file.path,
+            picturePath,
             friends,
             location,
             occupation,
